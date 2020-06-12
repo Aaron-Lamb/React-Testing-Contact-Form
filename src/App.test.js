@@ -1,5 +1,5 @@
 import React from "react";
-import { render, getByText, fireEvent } from "@testing-library/react";
+import { render, getByText, getByPlaceholderText, getByDisplayValue, fireEvent } from "@testing-library/react";
 import App from "./App";
 import ContactForm from './components/ContactForm';
 
@@ -13,7 +13,18 @@ test("finds input label", () => {
   expect(form).toBeInTheDocument();
 })
 
-test("can find submit button", () => {
-  const { getByTestId } = render(<ContactForm />);
-  getByTestId(/submit/i)
+test("finds placeholder", () => {
+  const { getByPlaceholderText } = render(<ContactForm />)
+  getByPlaceholderText(/edd/i)
+})
+
+test("fires event", () => {
+  const { getByPlaceholderText } = render(<ContactForm />)
+  let input = getByPlaceholderText(/burke/i)
+  fireEvent(input, new MouseEvent('click'));
+})
+
+test("finds error", () => {
+  const { getByText } = render(<ContactForm />)
+  getByText(/maxlength/i)
 })
