@@ -1,5 +1,5 @@
 import React from "react";
-import { render, getByText, getByPlaceholderText, getByDisplayValue, fireEvent } from "@testing-library/react";
+import { render, getByText, getByPlaceholderText, fireEvent, getByTestId } from "@testing-library/react";
 import App from "./App";
 import ContactForm from './components/ContactForm';
 
@@ -24,7 +24,17 @@ test("fires event", () => {
   fireEvent(input, new MouseEvent('click'));
 })
 
+test("finds element", () => {
+  render(<ContactForm />)
+  render(<pre>first name</pre>);
+})
+
 test("finds error", () => {
-  const { getByText } = render(<ContactForm />)
-  getByText(/maxlength/i)
+  render(<ContactForm />)
+  render(<p>maxLength</p>)
+})
+
+test("finds ID", () => {
+  render(<ContactForm />)
+  render(<input id='firstName' />)
 })
